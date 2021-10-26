@@ -1,0 +1,22 @@
+name: Auto update Go Mods
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "0 0 1 * *"  # Every month
+
+jobs:
+  update-theme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run update script
+        run: bash ./update_wowchemy.sh
+      - uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+      - name: Build website
+        run: hugo --gc --minify -b $HUGO_BASEURL
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
