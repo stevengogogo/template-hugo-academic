@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run update script
-        run: bash ./update_wowchemy.sh
       - uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: 'latest'
           extended: true
+      - name: Run update script
+        run: bash ./update_wowchemy.sh
       - name: Build website
         run: hugo --gc --minify -b $HUGO_BASEURL
       - name: Create Pull Request
