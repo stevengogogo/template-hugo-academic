@@ -12,6 +12,12 @@ jobs:
       # with:
       #  submodules: true  # Fetch Hugo themes (true OR recursive)
       #  fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+    - uses: actions/cache@v2
+      with:
+        path: /tmp/hugo_cache
+        key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-hugomod-
     - uses: peaceiris/actions-hugo@v2
       with:
         hugo-version: 'latest'
