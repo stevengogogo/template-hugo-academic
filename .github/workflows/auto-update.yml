@@ -3,7 +3,7 @@ name: Auto update Go Mods
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 1 * *"  # Every month
+    - cron: "0 0 * * 1"  # Every week
 
 jobs:
   update-theme:
@@ -20,5 +20,13 @@ jobs:
         run: bash ./update_wowchemy.sh
       - name: Build website
         run: hugo --gc --minify -b ${HUGO_BASEURL}
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+      - name: Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Update Hugo mod" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
