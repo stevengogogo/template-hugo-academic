@@ -5,10 +5,10 @@
 
 # Appearance
 
-theme: minimal
+theme: earth
 day_night: true
-font: ''
-font_size: L
+font: 'Classic'
+font_size: M
 
 # SEO
 
@@ -77,6 +77,9 @@ address_format: en-us
 highlight: true
 highlight_languages:
   - r
+  - julia
+  - python
+  - matlab
 math: false
 diagram: false
 privacy_pack: false
